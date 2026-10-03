@@ -1,0 +1,21 @@
+{
+  "name": "calculate_LSBs",
+  "version": "1.0.0",
+  "description": "Simple library for calculating LSB's & shunt Ohms for ADC's & voltage dividers using external measurements/multimeters.",
+  "keywords": "adc, calibration, analog, voltage-divider, lsb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joro1957/calculate_LSBs"
+  },
+  "authors": [
+    {
+      "name": "joro1957",
+      "email": "joro_1957@outlook.com",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": "*",
+  "headers": ["calculate_LSBs.h"]
+}
