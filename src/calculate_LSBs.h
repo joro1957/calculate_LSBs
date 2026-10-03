@@ -13,7 +13,7 @@ inline float calcMultiplier_vDivider(float R_high, float R_low) {
   return sum / R_low;
 }
 
-/// @brief Calculates the multiplier from an incorrect ADC read & an external measurement/multimeter.
+/// @brief Calculates the multiplier from an incorrect ADC voltage read & an external measurement/multimeter.
 /// @param adc_voltage  Incorrect ADC read voltage.
 /// @param ext_voltage Known accurate externally measured voltage, such as a calibrated multimeter.
 /// @return Multiplier to calculate the original input voltage from the divided voltage. Will return 1.0 if either input is NaN or <=0.
@@ -22,6 +22,18 @@ inline float calcMultiplier_externalVoltage(float adc_voltage, float ext_voltage
     return 1.0f;
   }
   return ext_voltage / adc_voltage;
+}
+
+/// @brief Calculates the multiplier from an incorrect ADC voltage read that was already multiplied & an external measurement/multimeter.
+/// @param existing_multiplier Multiplier that was used to get incorrect adc_voltage.
+/// @param adc_voltage  Incorrect ADC read voltage, already multiplied.
+/// @param ext_voltage Known accurate externally measured voltage, such as a calibrated multimeter.
+/// @return Multiplier to calculate the original input voltage from the adc_voltage. Will return 1.0 if either input is NaN or <=0.
+inline float calcMultiplier_multiplied_externalVoltage(float existing_multiplier, float adc_voltage, float ext_voltage) {
+  if (adc_voltage <= 0.0f || existing_multiplier <= 0.0f || isnan(adc_voltage) || isnan(existing_multiplier)) {
+    return 1.0f;
+  }
+  return calcMultiplier_externalVoltage((adc_voltage / existing_multiplier), ext_voltage);
 }
 
 /// @brief Calculates new LSB from old LSB & multiplier.
